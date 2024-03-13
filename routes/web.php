@@ -27,6 +27,7 @@ Route::get('/dashboard', [DashboardController::class, 'index'])
 Route::middleware(['auth', 'role:admin'])->name('admin.')->prefix('admin')->group(function () {
     Route::get('/lessor', [LessorProfileController::class, 'profileForm'])->name('profileForm');
     Route::post('/lessor-profile/store', [LessorProfileController::class, 'store'])->name('lessor.store');
+    Route::get('/lessors', [LessorProfileController::class, 'index'])->name('lessors.index');
 });
 
 Route::middleware('auth')->group(function () {

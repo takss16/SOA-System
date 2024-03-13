@@ -15,6 +15,12 @@
             <span>Lessor Profile</span>
           </a>
         </li>
+        <li class="nav-item">
+            <a href="{{ route('admin.lessors.index') }}" class="nav-link collapsed">
+              <i class="bi bi-person-plus"></i>
+              <span>Lessor Profile</span>
+            </a>
+          </li>
         @endrole
     </ul>
   </aside>
