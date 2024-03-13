@@ -23,6 +23,8 @@ class LessorProfileController extends Controller
 
         ]);
 
+        // Get the authenticated user
+        $user = auth()->user();
 
         $lessorProfile = new LessorProfile([
             'first_name' => $validatedData['first_name'],
@@ -45,13 +47,10 @@ class LessorProfileController extends Controller
             'province' => $request->input('province'),
             'country' => $request->input('country'),
         ]);
-
         if ($request->hasFile('id_photo')) {
             $idPhotoPath = $request->file('id_photo')->store('id_photos');
             $lessorProfile->id_photo = $idPhotoPath;
-
         }
-
         if ($request->hasFile('attached_documents')) {
             $attachedDocuments = [];
             foreach ($request->file('attached_documents') as $document) {
@@ -60,16 +59,13 @@ class LessorProfileController extends Controller
             }
             $lessorProfile->attached_documents = $attachedDocuments;
         }
-
-
+        $lessorProfile->user()->associate($user);
         $user = new User([
             'name' => $validatedData['first_name'],
             'email' => $request->input('contact_email'),
             'password' => bcrypt('password'),
         ]);
-
         $user->save();
-
         $lessorProfile->user()->associate($user);
         $lessorProfile->save();
 
@@ -79,5 +75,13 @@ class LessorProfileController extends Controller
         return redirect()->route('dashboard')->with('success', 'Lessor profile created successfully!');
     }
 
+    public function index()
+{
+    // Assuming you have authentication set up
+    $user = auth()->user();
+        $lessorProfiles = $user->lessorProfiles()->get();
+    dd($lessorProfiles);
+    return view('admin.view-lessor', compact('lessors'));
+}
 
 }
