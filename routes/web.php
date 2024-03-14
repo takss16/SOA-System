@@ -28,6 +28,11 @@ Route::middleware(['auth', 'role:admin'])->name('admin.')->prefix('admin')->grou
     Route::get('/lessor', [LessorProfileController::class, 'profileForm'])->name('profileForm');
     Route::post('/lessor-profile/store', [LessorProfileController::class, 'store'])->name('lessor.store');
     Route::get('/lessors', [LessorProfileController::class, 'index'])->name('lessors.index');
+    Route::get('/lessor-profile/{id}', [LessorProfileController::class, 'show'])->name('profile.show');
+});
+
+Route::middleware(['auth', 'role:lessor'])->name('lessor.')->prefix('lessor')->group(function () {
+
 });
 
 Route::middleware('auth')->group(function () {
