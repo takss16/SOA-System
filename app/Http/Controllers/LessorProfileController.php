@@ -47,27 +47,31 @@ class LessorProfileController extends Controller
             'province' => $request->input('province'),
             'country' => $request->input('country'),
         ]);
+
         if ($request->hasFile('id_photo')) {
-            $idPhotoPath = $request->file('id_photo')->store('id_photos');
+            $idPhotoPath = $request->file('id_photo')->store('id_photos', 'public');
             $lessorProfile->id_photo = $idPhotoPath;
         }
+
         if ($request->hasFile('attached_documents')) {
             $attachedDocuments = [];
             foreach ($request->file('attached_documents') as $document) {
-                $attachedDocumentPath = $document->store('attached_documents');
+                $attachedDocumentPath = $document->store('attached_documents', 'public');
                 $attachedDocuments[] = $attachedDocumentPath;
             }
             $lessorProfile->attached_documents = $attachedDocuments;
         }
+
+        // Associate the lessor profile with the authenticated user
         $lessorProfile->user()->associate($user);
+        $lessorProfile->save();
+
         $user = new User([
             'name' => $validatedData['first_name'],
             'email' => $request->input('contact_email'),
             'password' => bcrypt('password'),
         ]);
         $user->save();
-        $lessorProfile->user()->associate($user);
-        $lessorProfile->save();
 
 
         $user->assignRole('lessor');
@@ -76,12 +80,24 @@ class LessorProfileController extends Controller
     }
 
     public function index()
-{
-    // Assuming you have authentication set up
-    $user = auth()->user();
+    {
+        // Assuming you have authentication set up
+        $user = auth()->user();
+        // Assuming 'lessorProfiles' is the relationship method defined in the User model
         $lessorProfiles = $user->lessorProfiles()->get();
-    dd($lessorProfiles);
-    return view('admin.view-lessor', compact('lessors'));
-}
+
+        return view('admin.view-lessor', compact('lessorProfiles'));
+    }
+
+    public function show($id)
+    {
+        // Find the lessor profile by its ID
+        $lessorProfile = LessorProfile::findOrFail($id);
+
+        // Return the view with the lessor profile data
+        return view('admin.view-profile', compact('lessorProfile'));
+    }
+
+
 
 }

@@ -17,8 +17,8 @@
         </li>
         <li class="nav-item">
             <a href="{{ route('admin.lessors.index') }}" class="nav-link collapsed">
-              <i class="bi bi-person-plus"></i>
-              <span>Lessor Profile</span>
+              <i class="bi bi-person"></i>
+              <span>View Lessor</span>
             </a>
           </li>
         @endrole
