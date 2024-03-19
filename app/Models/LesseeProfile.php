@@ -6,16 +6,16 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class LessorProfile extends Model
+class LesseeProfile extends Model
 {
     use HasFactory;
-
     protected $fillable = [
         'user_id',
         'first_name',
         'last_name',
         'middle_name',
         'suffix',
+        'spouse',
         'contact_email',
         'contact_phone',
         'contact_tel',
@@ -35,11 +35,6 @@ class LessorProfile extends Model
         'attached_documents',
     ];
 
-    protected $casts = [
-        'bir_registration_date' => 'date',
-        'attached_documents' => 'json',
-    ];
-
     public function creatorUser(): BelongsTo
     {
         return $this->belongsTo(User::class, 'creator_user_id');
@@ -50,4 +45,3 @@ class LessorProfile extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 }
-
