@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('lessor_profiles', function (Blueprint $table) {
+        Schema::create('lessee_profiles', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('creator_user_id');
             $table->foreign('creator_user_id')->references('id')->on('users');
@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('first_name');
             $table->string('last_name');
             $table->string('middle_name')->nullable();
+            $table->string('spouse')->nullable();
             $table->string('suffix')->nullable();
             $table->string('contact_email');
             $table->string('contact_phone');
@@ -47,6 +48,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('lessor_profiles');
+        Schema::dropIfExists('lessee_profiles');
     }
 };

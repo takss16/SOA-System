@@ -44,8 +44,27 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
-    public function lessorProfiles(): HasMany
+    public function lessorProfilesCreated()
     {
-        return $this->hasMany(LessorProfile::class);
+        return $this->hasMany(LessorProfile::class, 'creator_user_id');
+    }
+
+    public function lessorProfiles()
+    {
+        return $this->hasMany(LessorProfile::class, 'user_id');
+    }
+
+    public function lesseeProfilesCreated()
+    {
+        return $this->hasMany(lesseeProfile::class, 'creator_user_id');
+    }
+
+    public function lesseeProfiles()
+    {
+        return $this->hasMany(lesseeProfile::class, 'user_id');
+    }
+    public function properties(): HasMany
+    {
+        return $this->hasMany(Properties::class);
     }
 }

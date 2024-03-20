@@ -4,16 +4,30 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
-use App\Models\LessorProfile;
-use Spatie\Permission\Models\Role;
+use App\Models\LesseeProfile;
 
-class LessorProfileController extends Controller
+
+class LesseeProfileController extends Controller
 {
-    public function profileForm()
+    /**
+     * Display a listing of the resource.
+     */
+    public function index()
     {
-        return view('admin.create-lessor');
+        return view('lessor.create-lessee');
     }
 
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
     public function store(Request $request)
     {
         $validatedData = $request->validate([
@@ -33,11 +47,12 @@ class LessorProfileController extends Controller
         ]);
         $newUser->save();
 
-        $lessorProfile = new LessorProfile([
+        $lesseeProfile = new LesseeProfile([
             'first_name' => $validatedData['first_name'],
             'last_name' => $validatedData['last_name'],
             'middle_name' => $request->input('middle_name'),
             'suffix' => $request->input('suffix'),
+            'spouse' => $request->input('spouse'),
             'contact_email' => $request->input('contact_email'),
             'contact_phone' => $request->input('contact_phone'),
             'contact_tel' => $request->input('contact_tel'),
@@ -57,7 +72,7 @@ class LessorProfileController extends Controller
 
         if ($request->hasFile('id_photo')) {
             $idPhotoPath = $request->file('id_photo')->store('id_photos', 'public');
-            $lessorProfile->id_photo = $idPhotoPath;
+            $lesseeProfile->id_photo = $idPhotoPath;
         }
 
         if ($request->hasFile('attached_documents')) {
@@ -66,37 +81,53 @@ class LessorProfileController extends Controller
                 $attachedDocumentPath = $document->store('attached_documents', 'public');
                 $attachedDocuments[] = $attachedDocumentPath;
             }
-            $lessorProfile->attached_documents = $attachedDocuments;
+            $lesseeProfile->attached_documents = json_encode($attachedDocuments);
         }
 
+
         // Associate the lessor profile with both users
-        $lessorProfile->creatorUser()->associate($creatorUser);
-        $lessorProfile->user()->associate($newUser);
-        $lessorProfile->save();
+        $lesseeProfile->creatorUser()->associate($creatorUser);
+        $lesseeProfile->user()->associate($newUser);
+        $lesseeProfile->save();
 
         // Assign a role to the new user
-        $newUser->assignRole('lessor');
+        $newUser->assignRole('lessee');
 
         return redirect()->route('dashboard')->with('success', 'Lessor profile created successfully!');
     }
 
-
-    public function index()
+    public function showLessee()
     {
-        // Assuming you have authentication set up
         $user = auth()->user();
-        $lessorProfiles = $user->lessorProfilesCreated()->get();
+        $lesseeProfiles = $user->lesseeProfilesCreated()->get();
 
-        return view('admin.view-lessor', compact('lessorProfiles'));
+
+        return view('lessor.view-lessee', compact('lesseeProfiles'));
     }
 
+
+    /**
+     * Display the specified resource.
+     */
     public function show($id)
     {
-        $lessorProfile = LessorProfile::findOrFail($id);
-
-        return view('admin.view-profile', compact('lessorProfile'));
+        $lesseeProfile = LesseeProfile::findOrFail($id);
+        $attachedDocuments = json_decode($lesseeProfile->attached_documents, true);
+        return view('lessor.lessee-profile', compact('lesseeProfile', 'attachedDocuments'));
     }
 
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(string $id)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
     public function update(Request $request, $id)
     {
         $validatedData = $request->validate([
@@ -104,10 +135,10 @@ class LessorProfileController extends Controller
             'last_name' => 'required|string',
         ]);
 
-        $lessorProfile = LessorProfile::findOrFail($id);
+        $lesseeProfile = LesseeProfile::findOrFail($id);
 
         // Update profile fields
-        $lessorProfile->update([
+        $lesseeProfile->update([
             'first_name' => $validatedData['first_name'],
             'last_name' => $validatedData['last_name'],
             'middle_name' => $request->input('middle_name'),
@@ -132,7 +163,7 @@ class LessorProfileController extends Controller
         // Update ID photo if provided
         if ($request->hasFile('id_photo')) {
             $idPhotoPath = $request->file('id_photo')->store('id_photos', 'public');
-            $lessorProfile->id_photo = $idPhotoPath;
+            $lesseeProfile->id_photo = $idPhotoPath;
         }
 
         // Update attached documents if provided
@@ -142,27 +173,27 @@ class LessorProfileController extends Controller
                 $attachedDocumentPath = $document->store('attached_documents', 'public');
                 $attachedDocuments[] = $attachedDocumentPath;
             }
-            $lessorProfile->attached_documents = $attachedDocuments;
+            $lesseeProfile->attached_documents = $attachedDocuments;
         }
 
         // Save the updated profile
-        $lessorProfile->save();
+        $lesseeProfile->save();
 
         return redirect()->route('dashboard')->with('success', 'Lessor profile updated successfully!');
     }
 
+    /**
+     * Remove the specified resource from storage.
+     */
     public function destroy($id)
     {
-        $lessorProfile = LessorProfile::findOrFail($id);
+        $lesseeProfile = LesseeProfile::findOrFail($id);
 
-        $lessorProfile->delete();
-        $user = User::find($lessorProfile->user_id);
+        $lesseeProfile->delete();
+        $user = User::find($lesseeProfile->user_id);
         if ($user) {
             $user->delete();
         }
         return redirect()->route('dashboard')->with('success', 'Lessor profile deleted successfully!');
     }
-
-
-
 }
