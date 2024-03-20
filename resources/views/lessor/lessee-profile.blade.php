@@ -89,10 +89,38 @@
                         @endif
                         </div>
                     </div>
-                    <div class="mt-5">
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#updateProfileModal{{$lesseeProfile->id}}">
-                            Update Profile
-                        </button>
+                    <div class="row mt-5 ">
+                        <div class="col-6 mx-auto text-center">
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#updateProfileModal{{$lesseeProfile->id}}">
+                                Update Profile
+                            </button>
+                            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal{{$lesseeProfile->id}}">
+                                <i class="bi bi-trash-fill"></i> Delete Profile
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="modal fade" id="confirmDeleteModal{{$lesseeProfile->id}}" tabindex="-1" aria-labelledby="confirmDeleteModalLabel{{$lesseeProfile->id}}" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="confirmDeleteModalLabel{{$lesseeProfile->id}}">Confirm Deletion</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    Are you sure you want to delete this profile?
+                                </div>
+                                <div class="modal-footer">
+                                    <form method="POST" action="{{ route('lessor.lessee-profiles.destroy', $lesseeProfile->id) }}">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger">Delete</button>
+                                    </form>
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     </div>
                     <div class="modal fade" id="updateProfileModal{{$lesseeProfile->id}}" tabindex="-1" aria-labelledby="updateProfileModal{{$lesseeProfile->id}}Label" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered modal-xl">
@@ -186,32 +214,33 @@
                                                 <label for="country" class="form-label">Country</label>
                                                 <input type="text" class="form-control" id="country" value="{{$lesseeProfile->country}}" name="country">
                                             </div>
-                                            <div class="col-md-4">
-                                                <label for="id_photo" class="form-label">ID Photo</label>
-                                                <input type="file" class="form-control" id="id_photo" name="id_photo">
-                                                @if ($lesseeProfile->id_photo)
-                                                    <p>Current ID Photo:</p>
-                                                    <img src="{{ asset('storage/' . $lesseeProfile->id_photo) }}" alt="Current ID Photo" style="max-width: 100%;">
-                                                @else
-                                                    <p>No ID Photo uploaded.</p>
-                                                @endif
-                                            </div>
-                                            <div class="col-md-4">
-                                                <label for="attached_documents" class="form-label">Attached Documents</label>
-                                                <input type="file" class="form-control" id="attached_documents" name="attached_documents[]" multiple>
+                                            <div class="row">
+                                                <div class="col-md-4 ">
+                                                    <label for="id_photo" class="form-label">ID Photo</label>
+                                                    <input type="file" class="form-control" id="id_photo" name="id_photo">
+                                                    @if ($lesseeProfile->id_photo)
+                                                        <p>Current ID Photo:</p>
+                                                        <img src="{{ asset('storage/' . $lesseeProfile->id_photo) }}" alt="Current ID Photo" style="max-width: 100%;">
+                                                    @else
+                                                        <p>No ID Photo uploaded.</p>
+                                                    @endif
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="attached_documents" class="form-label">Attached Documents</label>
+                                                    <input type="file" class="form-control" id="attached_documents" name="attached_documents[]" multiple>
 
-                                                @if ($lesseeProfile->attached_documents && count(json_decode($lesseeProfile->attached_documents)) > 0)
-                                                    <p>Current Attached Documents:</p>
-                                                    <ul>
-                                                        @foreach(json_decode($lesseeProfile->attached_documents) as $document)
-                                                        <li>{{ $document }}</li>
-                                                    @endforeach
-                                                    </ul>
-                                                @else
-                                                    <p>No Attached Documents uploaded.</p>
-                                                @endif
+                                                    @if ($lesseeProfile->attached_documents && count(json_decode($lesseeProfile->attached_documents)) > 0)
+                                                        <p>Current Attached Documents:</p>
+                                                        <ul>
+                                                            @foreach(json_decode($lesseeProfile->attached_documents) as $document)
+                                                            <li>{{ $document }}</li>
+                                                            @endforeach
+                                                        </ul>
+                                                    @else
+                                                        <p>No Attached Documents uploaded.</p>
+                                                    @endif
+                                                </div>
                                             </div>
-
                                         </div>
                                         <!-- Add more input fields for other profile data -->
 

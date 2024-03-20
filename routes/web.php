@@ -44,6 +44,8 @@ Route::middleware(['auth', 'role:lessor'])->name('lessor.')->prefix('lessor')->g
     Route::put('/lessee-profiles/{id}', [LesseeProfileController::class, 'update'])->name('lessee-profiles.update');
     Route::delete('/lessee-profiles/{id}', [LesseeProfileController::class, 'destroy'])->name('lessee-profiles.destroy');
     Route::get('/properties', [PropertiesController::class, 'index'])->name('properties');
+    Route::post('/properties/store', [PropertiesController::class, 'store'])->name('properties.store');
+
 
 });
 

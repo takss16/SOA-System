@@ -49,12 +49,13 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form id="propertyForm">
+                        <form id="propertyForm" action="{{ route('lessor.properties.store') }}" method="POST">
+                            @csrf
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="mb-3">
-                                        <label for="buildingUnit" class="form-label">Building Unit</label>
-                                        <input type="text" class="form-control" id="buildingUnit" name="buildingUnit">
+                                        <label for="building_unit" class="form-label">Building Unit</label>
+                                        <input type="text" class="form-control" id="building_unit" name="building_unit">
                                     </div>
                                     <div class="mb-3">
                                         <label for="lot" class="form-label">Lot Number</label>
@@ -92,17 +93,14 @@
                                 <label for="country" class="form-label">Country</label>
                                 <input type="text" class="form-control" id="country" name="country">
                             </div>
-                            <div class="mb-3">
-                                <label for="propertyDescription" class="form-label">Property Description</label>
-                                <textarea class="form-control" id="propertyDescription" name="propertyDescription" rows="3"></textarea>
+                            <label for="property_description" class="form-label">Property Description</label>
+                            <textarea class="form-control" id="property_description" name="property_description" rows="3"></textarea>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary" id="saveProperty">Save Property</button>
                             </div>
                         </form>
-
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary" id="saveProperty">Save Property</button>
-                    </div>
                 </div>
             </div>
         </div>
@@ -132,9 +130,10 @@
                                     <td>{{ $property->building_unit }}</td>
                                     <td>{{ $property->lot }}</td>
                                     <td>{{ $property->block }}</td>
+                                    <td>{{ $property->subdivision }}</td>
                                     <td>{{ $property->barangay}}</td>
-                                    <td>{{ $property->created_at->format('Y-m-d') }}</td>
                                     <td>
+                                        <p>actions</p>
                                     </td>
                                 </tr>
                             @endforeach

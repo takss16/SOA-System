@@ -71,10 +71,12 @@
                             @endforeach
                         </tbody>
                     </table>
-
+                  </div>
+                </div>
+            </div>
+        </section>
     </div>
   </main><!-- End #main -->
-
   <!-- ======= Footer ======= -->
   <footer id="footer" class="footer">
     <div class="copyright">

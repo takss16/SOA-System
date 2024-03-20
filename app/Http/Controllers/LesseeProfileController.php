@@ -185,8 +185,15 @@ class LesseeProfileController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($id)
     {
-        //
+        $lesseeProfile = LesseeProfile::findOrFail($id);
+
+        $lesseeProfile->delete();
+        $user = User::find($lesseeProfile->user_id);
+        if ($user) {
+            $user->delete();
+        }
+        return redirect()->route('dashboard')->with('success', 'Lessor profile deleted successfully!');
     }
 }

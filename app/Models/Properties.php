@@ -19,7 +19,7 @@ class Properties extends Model
         'province',
         'region',
         'country',
-        'description',
+        'property_description',
     ];
 
     public function user()
