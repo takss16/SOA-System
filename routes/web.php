@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ContractController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PropertiesController;
 use App\Http\Controllers\LesseeProfileController;
@@ -45,7 +46,7 @@ Route::middleware(['auth', 'role:lessor'])->name('lessor.')->prefix('lessor')->g
     Route::delete('/lessee-profiles/{id}', [LesseeProfileController::class, 'destroy'])->name('lessee-profiles.destroy');
     Route::get('/properties', [PropertiesController::class, 'index'])->name('properties');
     Route::post('/properties/store', [PropertiesController::class, 'store'])->name('properties.store');
-
+    Route::get('/contracts/create', [ContractController::class, 'create'])->name('contracts.create');
 
 });
 
