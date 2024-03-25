@@ -83,7 +83,6 @@ class LessorProfileController extends Controller
 
     public function index()
     {
-        // Assuming you have authentication set up
         $user = auth()->user();
         $lessorProfiles = $user->lessorProfilesCreated()->get();
 

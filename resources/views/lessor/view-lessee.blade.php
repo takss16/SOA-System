@@ -66,6 +66,7 @@
                                 <td>{{$lesseeProfile->created_at->format('Y/m/d') }}</td>
                                 <td>
                                     <a href="{{ route('lessor.profile.show',$lesseeProfile->id) }}" class="btn btn-outline-primary">View</a>
+                                    <a href="{{ route('lessor.contracts.create', ['lessee_profile_id' => $lesseeProfile->id]) }}" class="btn btn-primary">Create Contract</a>
                                 </td>
                             </tr>
                             @endforeach

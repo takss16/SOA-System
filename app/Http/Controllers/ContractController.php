@@ -9,11 +9,12 @@ class ContractController extends Controller
 {
     public function create(Request $request)
     {
-$properties = $request->user()->properties;
-         dd($properties);
+        $properties = $request->user()->properties;
+
         $lesseeProfileId = $request->query('lessee_profile_id');
+
         $lesseeProfile = LesseeProfile::findOrFail($lesseeProfileId);
 
-        return view('contracts.create', compact('lesseeProfile', 'properties'));
+        return view('lessor.contracts-create', compact('lesseeProfile', 'properties'));
     }
 }
