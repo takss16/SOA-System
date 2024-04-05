@@ -46,7 +46,9 @@ Route::middleware(['auth', 'role:lessor'])->name('lessor.')->prefix('lessor')->g
     Route::delete('/lessee-profiles/{id}', [LesseeProfileController::class, 'destroy'])->name('lessee-profiles.destroy');
     Route::get('/properties', [PropertiesController::class, 'index'])->name('properties');
     Route::post('/properties/store', [PropertiesController::class, 'store'])->name('properties.store');
-    Route::get('/contracts/create', [ContractController::class, 'create'])->name('contracts.create');
+    Route::get('/contracts/create/{lessee_profile}', [ContractController::class, 'create'])->name('contracts.create');
+    Route::post('/contract/store', [ContractController::class, 'store'])->name('contract.store');
+    Route::get('/contracts/show/{lesseeProfileId}', [ContractController::class, 'showContracts'])->name('contracts.show');
 
 });
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Contract;
 use Illuminate\Http\Request;
 use App\Models\LesseeProfile;
 
@@ -85,7 +86,6 @@ class LesseeProfileController extends Controller
         }
 
 
-        // Associate the lessor profile with both users
         $lesseeProfile->creatorUser()->associate($creatorUser);
         $lesseeProfile->user()->associate($newUser);
         $lesseeProfile->save();
@@ -100,6 +100,7 @@ class LesseeProfileController extends Controller
     {
         $user = auth()->user();
         $lesseeProfiles = $user->lesseeProfilesCreated()->get();
+
 
 
         return view('lessor.view-lessee', compact('lesseeProfiles'));

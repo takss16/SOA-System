@@ -51,7 +51,7 @@ class User extends Authenticatable
 
     public function lessorProfiles()
     {
-        return $this->hasMany(LessorProfile::class, 'user_id');
+        return $this->hasOne(LessorProfile::class, 'user_id');
     }
 
     public function lesseeProfilesCreated()
@@ -66,5 +66,9 @@ class User extends Authenticatable
     public function properties(): HasMany
     {
         return $this->hasMany(Properties::class);
+    }
+    public function contracts(): HasMany
+    {
+        return $this->hasMany(Contract::class);
     }
 }

@@ -12,6 +12,7 @@ class Contract extends Model
     protected $fillable = [
         'property_id',
         'lessee_profile_id',
+        'lessor_id',
         'contract_terms',
         'lease_term_start_date',
         'lease_term_end_date',
@@ -52,10 +53,12 @@ class Contract extends Model
     {
         return $this->belongsTo(Properties::class);
     }
-
-
     public function lesseeProfile()
     {
         return $this->belongsTo(LesseeProfile::class);
+    }
+    public function lessor()
+    {
+        return $this->belongsTo(User::class);
     }
 }
