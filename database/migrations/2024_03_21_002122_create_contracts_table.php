@@ -27,9 +27,9 @@ class CreateContractsTable extends Migration
             $table->decimal('deposit_damage', 12, 2)->nullable();
             $table->string('default_payment')->nullable();
             $table->date('contract_date')->nullable();
-            $table->text('water_terms')->nullable();
-            $table->text('electric_terms')->nullable();
-            $table->text('internet_terms')->nullable();
+            $table->boolean('water_terms')->nullable();
+            $table->boolean('electric_terms')->nullable();
+            $table->boolean('internet_terms')->nullable();
             $table->decimal('internet_rate', 12, 2)->nullable();
             $table->decimal('water_rate', 12, 2)->nullable();
             $table->decimal('electric_rate', 12, 2)->nullable();
