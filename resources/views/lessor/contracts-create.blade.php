@@ -61,8 +61,15 @@
                             <div class="col-md-4">
                                 <div class="mb-3">
                                     <label for="contract_terms" class="form-label">Contract Terms</label>
-                                    <textarea class="form-control" id="contract_terms" name="contract_terms" rows="3"></textarea>
+                                    <div class="input-group">
+                                        <input type="number" class="form-control" id="contract_terms" name="contract_terms" aria-describedby="term-addon">
+                                        <select class="form-select" id="term-addon" name="term_unit">
+                                            <option value="months">Months</option>
+                                            <option value="years">Years</option>
+                                        </select>
+                                    </div>
                                 </div>
+
                             </div>
                             <div class="col-md-4">
                                 <div class="mb-3">
@@ -94,22 +101,46 @@
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="mb-3">
-                                    <label for="water_terms" class="form-label">Water Terms</label>
-                                    <textarea class="form-control" id="water_terms" name="water_terms" rows="3"></textarea>
+                                    <label class="form-label">Water Terms</label><br>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="water_terms" id="water_terms_yes" value="1">
+                                        <label class="form-check-label" for="water_terms_yes">Yes</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="water_terms" id="water_terms_no" value="0" checked>
+                                        <label class="form-check-label" for="water_terms_no">No</label>
+                                    </div>
                                 </div>
                             </div>
+
                             <div class="col-md-4">
                                 <div class="mb-3">
-                                    <label for="electric_terms" class="form-label">Electric Terms</label>
-                                    <textarea class="form-control" id="electric_terms" name="electric_terms" rows="3"></textarea>
+                                    <label class="form-label">Electric Terms</label><br>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="electric_terms" id="electric_terms_yes" value="1">
+                                        <label class="form-check-label" for="electric_terms_yes">Yes</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="electric_terms" id="electric_terms_no" value="0" checked>
+                                        <label class="form-check-label" for="electric_terms_no">No</label>
+                                    </div>
                                 </div>
                             </div>
+
                             <div class="col-md-4">
                                 <div class="mb-3">
-                                    <label for="internet_terms" class="form-label">Internet Terms</label>
-                                    <textarea class="form-control" id="internet_terms" name="internet_terms" rows="3"></textarea>
+                                    <label class="form-label">Internet Terms</label><br>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="internet_terms" id="internet_terms_yes" value="1">
+                                        <label class="form-check-label" for="internet_terms_yes">Yes</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="internet_terms" id="internet_terms_no" value="0" checked>
+                                        <label class="form-check-label" for="internet_terms_no">No</label>
+                                    </div>
                                 </div>
                             </div>
+
                         </div>
                         <div class="row">
                             <div class="col-md-4">

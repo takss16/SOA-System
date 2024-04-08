@@ -102,7 +102,6 @@ class LesseeProfileController extends Controller
         $lesseeProfiles = $user->lesseeProfilesCreated()->get();
 
 
-
         return view('lessor.view-lessee', compact('lesseeProfiles'));
     }
 
