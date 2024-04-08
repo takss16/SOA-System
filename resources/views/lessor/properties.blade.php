@@ -97,7 +97,7 @@
                                     <td>{{ $property->subdivision }}</td>
                                     <td>{{ $property->barangay}}</td>
                                     <td>
-                                        <p>actions</p>
+                                        <a href="{{ route('lessor.properties.show', ['id' => $property->id]) }}" class="btn btn-primary">View</a>
                                     </td>
                                 </tr>
                             @endforeach

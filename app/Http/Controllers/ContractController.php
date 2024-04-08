@@ -21,19 +21,20 @@ class ContractController extends Controller
         $validatedData = $request->validate([
             'property_id' => 'required|exists:properties,id',
             'lessee_profile_id' => 'required|exists:lessee_profiles,id',
-            'contract_terms' => 'nullable|string',
+            'contract_terms' => 'nullable|numeric',
+            'term_unit' => 'required|string|in:months,years',
             'lease_term_start_date' => 'nullable|date',
             'lease_term_end_date' => 'nullable|date',
             'rental_rate' => 'nullable|numeric',
             'rental_terms' => 'nullable|string',
             'deposit_advance' => 'nullable|numeric',
             'deposit_security' => 'nullable|numeric',
-            'deposit_damage' => 'nullable|numeric',
+
             'default_payment' => 'nullable|string',
             'contract_date' => 'nullable|date',
-            'water_terms' => 'nullable|string',
-            'electric_terms' => 'nullable|string',
-            'internet_terms' => 'nullable|string',
+            'water_terms' => 'nullable|boolean',
+            'electric_terms' => 'nullable|boolean',
+            'internet_terms' => 'nullable|boolean',
             'internet_rate' => 'nullable|numeric',
             'water_rate' => 'nullable|numeric',
             'electric_rate' => 'nullable|numeric',
@@ -44,17 +45,19 @@ class ContractController extends Controller
             'witness_name_2' => 'nullable|string',
         ]);
 
+        $term = $validatedData['contract_terms'] . ' ' . $validatedData['term_unit'];
+
         $contract = new Contract([
             'property_id' => $validatedData['property_id'],
             'lessee_profile_id' => $validatedData['lessee_profile_id'],
-            'contract_terms' => $validatedData['contract_terms'],
+            'contract_terms' => $term,
             'lease_term_start_date' => $validatedData['lease_term_start_date'],
             'lease_term_end_date' => $validatedData['lease_term_end_date'],
             'rental_rate' => $validatedData['rental_rate'],
             'rental_terms' => $validatedData['rental_terms'],
             'deposit_advance' => $validatedData['deposit_advance'],
             'deposit_security' => $validatedData['deposit_security'],
-            'deposit_damage' => $validatedData['deposit_damage'],
+
             'default_payment' => $validatedData['default_payment'],
             'contract_date' => $validatedData['contract_date'],
             'water_terms' => $validatedData['water_terms'],
