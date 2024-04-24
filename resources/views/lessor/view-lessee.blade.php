@@ -35,7 +35,9 @@
                                         <div class="dropdown-menu">
                                             <a class="dropdown-item" href="{{ route('lessor.profile.show', $lesseeProfile->id) }}">View</a>
                                             <a class="dropdown-item" href="{{ route('lessor.contracts.create', ['lessee_profile' => $lesseeProfile->id]) }}">Create Contract</a>
-                                            <a class="dropdown-item" href="{{ route('lessor.contracts.show', ['lesseeProfileId' => $lesseeProfile->id]) }}">View Contracts</a>
+                                            @if ($lesseeProfile->contracts()->exists())
+                                                <a class="dropdown-item" href="{{ route('lessor.contracts.show', ['lesseeProfileId' => $lesseeProfile->id]) }}">View Contracts</a>
+                                             @endif
                                         </div>
                                       </div>
                                 </td>
@@ -46,6 +48,7 @@
                   </div>
                 </div>
             </div>
+        </div>
         </section>
     </div>
 </x-layout>

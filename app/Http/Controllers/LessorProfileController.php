@@ -38,6 +38,7 @@ class LessorProfileController extends Controller
             'last_name' => $validatedData['last_name'],
             'middle_name' => $request->input('middle_name'),
             'suffix' => $request->input('suffix'),
+            'spouse' => $request->input('spouse'),
             'contact_email' => $request->input('contact_email'),
             'contact_phone' => $request->input('contact_phone'),
             'contact_tel' => $request->input('contact_tel'),

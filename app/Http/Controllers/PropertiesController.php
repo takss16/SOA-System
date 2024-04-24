@@ -34,10 +34,10 @@ public function store(Request $request)
         'region' => 'required|string',
         'country' => 'required|string',
     ]);
-    $userId = auth()->id();
-    $property = new Properties($validatedData);
-    $property->user_id = $userId;
-    $property->save();
+        $userId = auth()->id();
+        $property = new Properties($validatedData);
+        $property->user_id = $userId;
+        $property->save();
 
     return redirect()->route('dashboard')->with('success', 'Property added successfully!');
 }

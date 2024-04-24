@@ -5,6 +5,15 @@
             <i class="bi bi-plus"></i> Add Property
         </button>
         </div>
+        @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
         <div class="modal fade" id="propertyModal" tabindex="-1" aria-labelledby="propertyModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered modal-xl ">
                 <div class="modal-content">

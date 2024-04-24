@@ -21,6 +21,10 @@
                                 <input type="text" class="form-control" id="middle_name" name="middle_name">
                             </div>
                             <div class="col-md-4">
+                                <label for="spouse" class="form-label">spouse</label>
+                                <input type="text" class="form-control" id="spouse" name="suffix">
+                            </div>
+                            <div class="col-md-4">
                                 <label for="suffix" class="form-label">Suffix</label>
                                 <input type="text" class="form-control" id="suffix" name="suffix">
                             </div>
