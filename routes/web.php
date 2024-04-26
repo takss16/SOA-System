@@ -34,7 +34,6 @@ Route::middleware(['auth', 'role:admin'])->name('admin.')->prefix('admin')->grou
     Route::get('/lessor-profile/{id}', [LessorProfileController::class, 'show'])->name('profile.show');
     Route::put('/lessor-profiles/{id}', [LessorProfileController::class, 'update'])->name('lessor-profiles.update');
     Route::delete('/lessor-profiles/{id}', [LessorProfileController::class, 'destroy'])->name('lessor-profiles.destroy');
-
 });
 
 Route::middleware(['auth', 'role:lessor'])->name('lessor.')->prefix('lessor')->group(function () {
@@ -53,8 +52,6 @@ Route::middleware(['auth', 'role:lessor'])->name('lessor.')->prefix('lessor')->g
     Route::post('/contract/store', [ContractController::class, 'store'])->name('contract.store');
     Route::get('/contracts/show/{lesseeProfileId}', [ContractController::class, 'showContracts'])->name('contracts.show');
     Route::get('/contracts/{id}/pdf', [ContractController::class, 'generatePDF'])->name('contracts.pdf');
-
-
 });
 
 Route::middleware('auth')->group(function () {
@@ -63,4 +60,4 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

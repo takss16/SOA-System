@@ -44,20 +44,26 @@
     </style>
 </head>
 <body>
+
+
+
+
     <h3 class="title">CONTRACT OF LEASE</h3>
     <div class="container">
-        <p><b>KNOW ALL MEN BY THESE PRESENTS:</b></p>
+        <p ><b>KNOW ALL MEN BY THESE PRESENTS:</b></p>
 
         <p>This CONTRACT OF LEASE is made and executed at the City of Mabalacat, this day of <b>{{ \Carbon\Carbon::parse($contract->contract_date)->format('F d, Y') }}</b>
-            by and between:</p>
-
+            by and between:
+        </p>
         <p class="indent" >
-            <b>{{ $contract->lessor->lessorProfiles->first_name }}
+            <b>
+                {{ $contract->lessor->lessorProfiles->first_name }}
                 {{ $contract->lessor->lessorProfiles->middle_name }}
                 {{ $contract->lessor->lessorProfiles->last_name }}</b>
                 , of legal age, married to Enrique M. David, Filipino, and with
                  residence and postal address at
-                 <b>{{ $contract->lessor->lessorProfiles->street }},
+                <b>
+                {{ $contract->lessor->lessorProfiles->street }},
                 {{ $contract->lessor->lessorProfiles->barangay }},
                 {{ $contract->lessor->lessorProfiles->city}},
                 {{ $contract->lessor->lessorProfiles->province}}</b>
@@ -67,8 +73,8 @@
         <p class="indent" >
             <b>{{ $contract->lesseeProfile->first_name }}
             {{ $contract->lesseeProfile->middle_name }}
-            {{ $contract->lesseeProfile->last_name }}</b>
-            , Filipino and with residence and postal address at
+            {{ $contract->lesseeProfile->last_name }}</b>,
+             Filipino and with residence and postal address at
              <b>{{ $contract->lesseeProfile->street }},
                 {{ $contract->lesseeProfile->barangay }},
                 {{ $contract->lesseeProfile->city}},
@@ -103,11 +109,23 @@
                 and expiring on<b>{{ \Carbon\Carbon::parse($contract->lease_term_end_date)->format('F d, Y') }}</b>. Upon its expiration, the lease may be renewed under such terms and conditions mutually agreed upon by both parties; written notice of intention to renew the lease shall be served to the LESSOR not later than one (1) month prior to the above stated expiry date. Pre-termination of the lease shall result in the forfeiture of the deposit stated in number 4 hereof.
             </li>
             <li>
-                <strong>RENTAL RATE:</strong> The monthly rental rate for the leased premises shall be in PESOS: fifteen thousand (P <b>{{ $contract->rental_rate}}</b>), Philippine Currency. All rental payments shall be payable to the LESSOR.
+                <strong>RENTAL RATE:</strong> The monthly rental rate for the leased premises shall be in PESOS: {{ $rentalRate }}
+                PHP (<b>{{ number_format($contract->rental_rate, 2) }}</b>),
+                 Philippine Currency. All rental payments shall be payable to the LESSOR.
             </li>
             <li>
-                <strong>DEPOSIT:</strong> The LESSEE shall deposit to the LESSOR upon signing of this contract and prior to move-in an amount equivalent to the rent for two (2) months or the sum of PESOS: thirty thousand (P 30,000.00), Philippine Currency. Wherein the one (1) month.
+                <strong>DEPOSIT:</strong> The LESSEE shall deposit to the LESSOR upon signing of this contract and prior to move-in an amount equivalent to the rent for
+                {{ $Totaldept }} (<b>{{ $totalDeposit}}</b>) months or the sum of PESOS: {{$sum}} (<b>{{ number_format($contract->rental_rate * $totalDeposit, 2) }}</b>), Philippine Currency. Wherein the
+                {{$depositAdvance}} (<b>{{ $contract->deposit_advance}}</b>) month deposit shall be applied as rent for the
+                @foreach($lastMonths as $month)
+                    {{ $loop->first ? '' : ', ' }} {{ $month }}th
+                @endforeach
+                month and the remaining {{$depositSecurity}} (<b>{{ $contract->deposit_security}}</b>) month
+                deposit shall answer partially for damages and any other obligations, for utilities such as
+                Water, Electricity, CATV, Telephone, Association Dues or resulting from violation(s) of
+                any of the provision of this contract.
             </li>
+
             <li><strong>DEFAULT PAYMENT:</strong> In case of default by the LESSEE in the payment of the rent, such as when the checks are dishonored, the LESSOR has the option to terminate this contract and eject the LESSEE. The LESSOR has the right to padlock the premises when the LESSEE is in default of payment for one (1) month and may forfeit whatever rental deposit or advances have been given by the LESSEE.</li>
             <li><strong>SUB-LEASE:</strong> The LESSEE shall not directly or indirectly sublet, allow or permit the Leased Premises to be occupied in whole or in part by any person, form, or corporation, neither shall the LESSEE assign its rights hereunder to any other person or entity and no right of interest thereto or therein shall be conferred on or vested in anyone by the LESSEE without the LESSOR'S written approval.</li>
             <li><strong>PUBLIC UTILITIES:</strong> The LESSEE shall pay for its telephone, electric, cable TV, water, Internet, association dues, and other public services and utilities during the duration of the lease. The LESSOR is not responsible for any payments, penalties, reconnection, or realignment which will incur due to the Tenant’s noncompliance or nonpayment of the said bills or will be charged to the LESSEE accordingly.</li>
@@ -171,14 +189,31 @@
     </tr>
 
     <tr>
-        <td >Nora O. David</td>
-        <td >Senior ID: MB-1610</td>
-        <td>January 3, 2022</td>
+        <td >
+            <b>{{ $contract->lessor->lessorProfiles->first_name }}
+                {{ $contract->lessor->lessorProfiles->middle_name }}
+                {{ $contract->lessor->lessorProfiles->last_name }}
+            </b>
+        </td>
+        <td >
+            {{ $contract->lessee_id_type}}:
+            {{ $contract->lessee_id_number}}
+        </td>
+        <td> {{  \Carbon\Carbon::parse($contract->lessee_id_issued_date)->format('F d, Y')}}</td>
     </tr>
     <tr>
-        <td >Angelo A. Tarun</td>
-        <td >Passport: P8810427A</td>
-        <td>September 20, 20</td>
+        <td >
+            <b>
+                {{ $contract->lesseeProfile->first_name }}
+                {{ $contract->lesseeProfile->middle_name }}
+                {{ $contract->lesseeProfile->last_name }}
+            </b>
+        </td>
+        <td >
+            {{ $contract->lessor_id_type}}:
+            {{ $contract->lessor_id_number}}
+        </td>
+        <td> {{  \Carbon\Carbon::parse($contract->lessor_id_issued_date)->format('F d, Y')}}</td>
     </tr>
 </table>
 

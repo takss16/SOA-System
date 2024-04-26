@@ -22,23 +22,37 @@ class PropertiesController extends Controller
 
 public function store(Request $request)
 {
+    // Validate only 'building_unit' and 'property_description'
     $validatedData = $request->validate([
         'building_unit' => 'required|string',
         'property_description' => 'required|string',
-        'lot' => 'required|string',
-        'block' => 'required|string',
-        'subdivision' => 'required|string',
-        'barangay' => 'required|string',
-        'cityTown' => 'required|string',
-        'province' => 'required|string',
-        'region' => 'required|string',
-        'country' => 'required|string',
     ]);
-        $userId = auth()->id();
-        $property = new Properties($validatedData);
-        $property->user_id = $userId;
-        $property->save();
 
+    // Retrieve authenticated user ID
+    $userId = auth()->id();
+
+    // Create new Properties instance
+    $property = new Properties();
+
+    // Assign validated data to the model
+    $property->building_unit = $validatedData['building_unit'];
+    $property->property_description = $validatedData['property_description'];
+
+    // Assign additional fields directly from the request
+    $property->lot = $request->input('lot');
+    $property->block = $request->input('block');
+    $property->subdivision = $request->input('subdivision');
+    $property->barangay = $request->input('barangay');
+    $property->cityTown = $request->input('cityTown');
+    $property->province = $request->input('province');
+    $property->region = $request->input('region');
+    $property->country = $request->input('country');
+
+    // Assign user ID and save the model
+    $property->user_id = $userId;
+    $property->save();
+
+    // Redirect with success message
     return redirect()->route('dashboard')->with('success', 'Property added successfully!');
 }
 

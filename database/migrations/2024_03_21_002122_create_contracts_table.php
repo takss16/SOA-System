@@ -22,8 +22,8 @@ class CreateContractsTable extends Migration
             $table->date('lease_term_end_date')->nullable();
             $table->decimal('rental_rate', 12, 2)->nullable();
             $table->text('rental_terms')->nullable();
-            $table->decimal('deposit_advance', 12, 2)->nullable();
-            $table->decimal('deposit_security', 12, 2)->nullable();
+            $table->integer('deposit_advance', 12, 2)->nullable();
+            $table->integer('deposit_security', 12, 2)->nullable();
             $table->decimal('deposit_damage', 12, 2)->nullable();
             $table->string('default_payment')->nullable();
             $table->date('contract_date')->nullable();
