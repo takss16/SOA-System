@@ -9,7 +9,6 @@
                     <table class="table datatable">
                         <thead>
                             <tr>
-
                                 <th>Contract Terms</th>
                                 <th>Property Description</th>
                                 <th>Lessee Name</th>
@@ -20,7 +19,6 @@
                         <tbody>
                             @foreach ($contracts as $contract)
                                 <tr>
-
                                     <td>{{ $contract->contract_terms }}</td>
                                     <td>{{ $contract->property->property_description }}</td>
                                     <td>{{ $contract->lesseeProfile->first_name }}
@@ -32,7 +30,7 @@
                                         {{ $contract->lessor->lessorProfiles->last_name }}
                                     </td>
                                     <td>
-                                        <p>action</p>
+                                        <a href="{{ route('lessor.contracts.pdf', $contract->id) }} " class="btn btn-primary">View pdf</a>
                                     </td>
                                 </tr>
                             @endforeach

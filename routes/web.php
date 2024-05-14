@@ -52,6 +52,8 @@ Route::middleware(['auth', 'role:lessor'])->name('lessor.')->prefix('lessor')->g
     Route::get('/contracts/create/{lessee_profile}', [ContractController::class, 'create'])->name('contracts.create');
     Route::post('/contract/store', [ContractController::class, 'store'])->name('contract.store');
     Route::get('/contracts/show/{lesseeProfileId}', [ContractController::class, 'showContracts'])->name('contracts.show');
+    Route::get('/contracts/{id}/pdf', [ContractController::class, 'generatePDF'])->name('contracts.pdf');
+
 
 });
 

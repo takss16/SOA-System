@@ -100,15 +100,11 @@ class LesseeProfileController extends Controller
     {
         $user = auth()->user();
         $lesseeProfiles = $user->lesseeProfilesCreated()->get();
-
-
         return view('lessor.view-lessee', compact('lesseeProfiles'));
     }
 
 
-    /**
-     * Display the specified resource.
-     */
+
     public function show($id)
     {
         $lesseeProfile = LesseeProfile::findOrFail($id);
@@ -160,13 +156,11 @@ class LesseeProfileController extends Controller
             'country' => $request->input('country'),
         ]);
 
-        // Update ID photo if provided
         if ($request->hasFile('id_photo')) {
             $idPhotoPath = $request->file('id_photo')->store('id_photos', 'public');
             $lesseeProfile->id_photo = $idPhotoPath;
         }
 
-        // Update attached documents if provided
         if ($request->hasFile('attached_documents')) {
             $attachedDocuments = [];
             foreach ($request->file('attached_documents') as $document) {
@@ -176,7 +170,6 @@ class LesseeProfileController extends Controller
             $lesseeProfile->attached_documents = $attachedDocuments;
         }
 
-        // Save the updated profile
         $lesseeProfile->save();
 
         return redirect()->route('dashboard')->with('success', 'Lessor profile updated successfully!');

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Contract;
+use Barryvdh\DomPDF\Facade\Pdf as PDF;
 use Illuminate\Http\Request;
 use App\Models\LesseeProfile;
 
@@ -14,7 +15,6 @@ class ContractController extends Controller
 
         return view('lessor.contracts-create', compact('lessee_profile', 'properties'));
     }
-
 
     public function store(Request $request)
     {
@@ -29,7 +29,6 @@ class ContractController extends Controller
             'rental_terms' => 'nullable|string',
             'deposit_advance' => 'nullable|numeric',
             'deposit_security' => 'nullable|numeric',
-
             'default_payment' => 'nullable|string',
             'contract_date' => 'nullable|date',
             'water_terms' => 'nullable|boolean',
@@ -57,7 +56,6 @@ class ContractController extends Controller
             'rental_terms' => $validatedData['rental_terms'],
             'deposit_advance' => $validatedData['deposit_advance'],
             'deposit_security' => $validatedData['deposit_security'],
-
             'default_payment' => $validatedData['default_payment'],
             'contract_date' => $validatedData['contract_date'],
             'water_terms' => $validatedData['water_terms'],
@@ -78,17 +76,14 @@ class ContractController extends Controller
             $lessorDocumentPath = $request->file('lessor_document')->store('public/lessor_documents');
             $contract->lessor_document = $lessorDocumentPath;
         }
-
         if ($request->hasFile('lessee_document')) {
             $lesseeDocumentPath = $request->file('lessee_document')->store('public/lessee_documents');
             $contract->lessee_document = $lesseeDocumentPath;
         }
-
         if ($request->hasFile('lessor_id_photo')) {
             $lessorIdPhotoPath = $request->file('lessor_id_photo')->store('public/lessor_id_photos');
             $contract->lessor_id_photo = $lessorIdPhotoPath;
         }
-
         if ($request->hasFile('lessee_id_photo')) {
             $lesseeIdPhotoPath = $request->file('lessee_id_photo')->store('public/lessee_id_photos');
             $contract->lessee_id_photo = $lesseeIdPhotoPath;
@@ -109,5 +104,14 @@ class ContractController extends Controller
     }
 
 
+
+    public function generatePDF($id)
+    {
+        $contract = Contract::with('lesseeProfile', 'lessor', 'property', 'lessor.lessorProfiles')
+                        ->findOrFail($id);
+
+        $pdf = PDF::loadView('lessor.contract-pdf', compact('contract'))->setPaper('legal');
+        return $pdf->stream('contract.pdf');
+    }
 
 }

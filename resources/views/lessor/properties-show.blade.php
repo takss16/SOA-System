@@ -1,7 +1,7 @@
 <x-layout>
     <div class="col-lg-12 mt-3">
         <div class="mt-2">
-            <div class="card">
+            <div class="">
                 <div class="card-body mb-2">
                     <div class="card">
                         <div class="card-header">

@@ -112,7 +112,6 @@
                                     </div>
                                 </div>
                             </div>
-
                             <div class="col-md-4">
                                 <div class="mb-3">
                                     <label class="form-label">Electric Terms</label><br>
@@ -126,7 +125,6 @@
                                     </div>
                                 </div>
                             </div>
-
                             <div class="col-md-4">
                                 <div class="mb-3">
                                     <label class="form-label">Internet Terms</label><br>
@@ -140,15 +138,8 @@
                                     </div>
                                 </div>
                             </div>
-
                         </div>
                         <div class="row">
-                            <div class="col-md-4">
-                                <div class="mb-3">
-                                    <label for="internet_rate" class="form-label">Internet Rate</label>
-                                    <input type="number" class="form-control" id="internet_rate" name="internet_rate" step="0.01">
-                                </div>
-                            </div>
                             <div class="col-md-4">
                                 <div class="mb-3">
                                     <label for="water_rate" class="form-label">Water Rate</label>
@@ -159,6 +150,12 @@
                                 <div class="mb-3">
                                     <label for="electric_rate" class="form-label">Electric Rate</label>
                                     <input type="number" class="form-control" id="electric_rate" name="electric_rate" step="0.01">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label for="internet_rate" class="form-label">Internet Rate</label>
+                                    <input type="number" class="form-control" id="internet_rate" name="internet_rate" step="0.01">
                                 </div>
                             </div>
                         </div>

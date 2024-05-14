@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('first_name');
             $table->string('last_name');
             $table->string('middle_name')->nullable();
+            $table->string('spouse')->nullable();
             $table->string('suffix')->nullable();
             $table->string('contact_email');
             $table->string('contact_phone');
